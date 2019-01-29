@@ -19,9 +19,9 @@ import java.util.List;
 public class DBHelper {
 
     public static String driver = "com.mysql.jdbc.Driver";
-    public static String url = "jdbc:mysql://142.93.99.234:3306/REVIEWER";
-    public static String user = "reviewer";
-    public static String password = "reviewer12345";
+    public static String url = "";
+    public static String user = "";
+    public static String password = "";
 
     //set connection
     public static Connection setConnection() {
