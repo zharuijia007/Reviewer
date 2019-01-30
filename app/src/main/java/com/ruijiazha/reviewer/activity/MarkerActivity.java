@@ -42,7 +42,7 @@ public class MarkerActivity extends Activity {
     ImageView imageFull;
     ImageButton save,clear;
     ViewGroup relativeLayout;
-    
+
     private int i = 0;
     public HashMap<Integer,String> starContentMap = new HashMap<>();//save contents to re-enter popwindow
     public HashMap<Integer,String> starReviewMap = new HashMap<>();//save reviews and transfer to mainactivity orderly, to draw markers on the screenshot
