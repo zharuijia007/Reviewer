@@ -42,8 +42,7 @@ public class MarkerActivity extends Activity {
     ImageView imageFull;
     ImageButton save,clear;
     ViewGroup relativeLayout;
-
-    private int markerX,markerY;
+    
     private int i = 0;
     public HashMap<Integer,String> starContentMap = new HashMap<>();//save contents to re-enter popwindow
     public HashMap<Integer,String> starReviewMap = new HashMap<>();//save reviews and transfer to mainactivity orderly, to draw markers on the screenshot
@@ -119,8 +118,8 @@ public class MarkerActivity extends Activity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         if(starContentMap.size()<5) {
-                            markerX = Math.round(event.getX());
-                            markerY = Math.round(event.getY());
+                            final int markerX = Math.round(event.getX());
+                            final int markerY = Math.round(event.getY());
                             final StarImageButton imageView = new StarImageButton(MarkerActivity.this);
                             imageView.setStarid(i+1);
                             starContentMap.put(i+1,"");
