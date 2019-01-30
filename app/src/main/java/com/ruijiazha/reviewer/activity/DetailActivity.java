@@ -73,7 +73,12 @@ public class DetailActivity extends Activity {
                             String[] pos = position.split("\\+");
                             String x = pos[0].trim();
                             String y = pos[1].trim();
-                            String content = parts[1].trim();
+                            String content = null;
+                            if(parts.length == 1){
+                                content = null;
+                            }else {
+                                content = parts[1].trim();
+                            }
                             Marker m = new Marker();
                             m.setX(Integer.parseInt(x));
                             m.setY(Integer.parseInt(y));

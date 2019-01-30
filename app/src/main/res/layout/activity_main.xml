@@ -65,7 +65,7 @@
                     android:layout_height="40dp"
                     android:layout_marginBottom="10dp"
                     android:paddingEnd="10dp"
-                    android:onClick="gallery"
+
                     android:background="@drawable/upload_button"
                     android:drawableEnd="@android:drawable/ic_menu_gallery"
                     android:text="UPLOAD"
