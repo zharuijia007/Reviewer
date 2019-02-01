@@ -65,7 +65,6 @@
                     android:layout_height="40dp"
                     android:layout_marginBottom="10dp"
                     android:paddingEnd="10dp"
-
                     android:background="@drawable/upload_button"
                     android:drawableEnd="@android:drawable/ic_menu_gallery"
                     android:text="UPLOAD"
@@ -98,363 +97,341 @@
                     android:hint="Please add an overall review"
                     android:inputType="textMultiLine" />
 
-                <Spinner
-                    android:id="@+id/typeSpinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/spinner"
-                    android:textAlignment="center"
-                    />
 
                 <LinearLayout
+                    android:id="@+id/issueTypeExpand"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_height="50dp"
                     android:background="#3F51B5"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/issueTypeExpandIcon"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/arrow_right" />
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Are you in a hurry?"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:text="Select Issue Type"
                         android:textColor="#FFFFFF"
                         android:textSize="20dp" />
-
-                    <RadioGroup
-                        android:id="@+id/Q1Group"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginRight="40dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/Q1ButtonYes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="YES"
-                            android:textColor="#FFFFFF"
-                            android:textSize="15dp" />
-
-                        <RadioButton
-                            android:id="@+id/Q1ButtonNo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="NO"
-                            android:textColor="#FFFFFF"
-                            android:textSize="15dp" />
-                    </RadioGroup>
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/issueTypeChoice"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:background="#3F51B5"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:background="#458B74"
+                    android:orientation="horizontal"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:visibility="gone"
+                    >
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Are you bothered by someone or something?"
-                        android:textColor="#FFFFFF"
-                        android:textSize="20dp" />
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:orientation="vertical">
 
-                    <RadioGroup
-                        android:id="@+id/Q2Group"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginRight="40dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/Q2ButtonYes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="YES"
-                            android:textColor="#FFFFFF"
-                            android:textSize="15dp" />
-
-                        <RadioButton
-                            android:id="@+id/Q2ButtonNo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="NO"
-                            android:textColor="#FFFFFF"
-                            android:textSize="15dp" />
-                    </RadioGroup>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:background="#3F51B5"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Are you having more urgent things to do?"
-                        android:textColor="#FFFFFF"
-                        android:textSize="20dp" />
-
-                    <RadioGroup
-                        android:id="@+id/Q3Group"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginRight="40dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/Q3ButtonYes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="YES"
-                            android:textColor="#FFFFFF"
-                            android:textSize="15dp" />
-
-                        <RadioButton
-                            android:id="@+id/Q3ButtonNo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="NO"
-                            android:textColor="#FFFFFF"
-                            android:textSize="15dp" />
-                    </RadioGroup>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:background="#CDAD00"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Is using mobile devices not recommended now?"
-                        android:textColor="#FFFFFF"
-                        android:textSize="20dp" />
-
-                    <RadioGroup
-                        android:id="@+id/Q4Group"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginRight="40dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/Q4ButtonYes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="YES"
-                            android:textColor="#FFFFFF"
-                            android:textSize="15dp" />
-
-                        <RadioButton
-                            android:id="@+id/Q4ButtonNo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="NO"
-                            android:textColor="#FFFFFF"
-                            android:textSize="15dp" />
-                    </RadioGroup>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:background="#CDAD00"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Are you interacting with others?"
-                        android:textColor="#FFFFFF"
-                        android:textSize="20dp" />
-
-                    <RadioGroup
-                        android:id="@+id/Q5Group"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginRight="40dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/Q5ButtonYes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="YES"
-                            android:textColor="#FFFFFF"
-                            android:textSize="15dp" />
-
-                        <RadioButton
-                            android:id="@+id/Q5ButtonNo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="NO"
-                            android:textColor="#FFFFFF"
-                            android:textSize="15dp" />
-                    </RadioGroup>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:background="#CDAD00"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="Are you communicating on electronic devices?"
-                        android:textColor="#FFFFFF"
-                        android:textSize="20dp" />
-
-                    <RadioGroup
-                        android:id="@+id/Q6Group"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginRight="40dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/Q6ButtonYes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="YES"
-                            android:textColor="#FFFFFF"
-                            android:textSize="15dp" />
-
-                        <RadioButton
-                            android:id="@+id/Q6ButtonNo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="NO"
-                            android:textColor="#FFFFFF"
-                            android:textSize="15dp" />
-                    </RadioGroup>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:background="#CD5555"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="What state are you in?"
-                        android:textColor="#FFFFFF"
-                        android:textSize="20dp" />
-
-                    <RadioGroup
-                        android:id="@+id/Q7Group"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/Q7Button1"
+                        <RadioGroup
+                            android:id="@+id/issueTypeGroup"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="Staying in one place"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12dp" />
+                            android:gravity="left"
+                            android:orientation="vertical">
 
-                        <RadioButton
-                            android:id="@+id/Q7Button2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1.1"
-                            android:gravity="center"
-                            android:text="Physically moving"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12dp" />
+                            <RadioButton
+                                android:id="@+id/issueType1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="Bugs"
+                                android:textColor="#FFFFFF"
+                                android:textSize="15dp" />
 
-                        <RadioButton
-                            android:id="@+id/Q7Button3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="In transportation"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12dp" />
-                    </RadioGroup>
+                            <RadioButton
+                                android:id="@+id/issueType2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="Performance"
+                                android:textColor="#FFFFFF"
+                                android:textSize="15dp" />
+                            <RadioButton
+                                android:id="@+id/issueType3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="UI/User Experience"
+                                android:textColor="#FFFFFF"
+                                android:textSize="15dp" />
+                            <RadioButton
+                                android:id="@+id/issueType4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="Service Request/Improvement"
+                                android:textColor="#FFFFFF"
+                                android:textSize="15dp" />
+                            <RadioButton
+                                android:id="@+id/issueType5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="Others"
+                                android:textColor="#FFFFFF"
+                                android:textSize="15dp" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.9"
+                        android:orientation="vertical">
+                        <ImageButton
+                            android:id="@+id/explain1"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/help_button" />
+                        <ImageButton
+                            android:id="@+id/explain2"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/help_button" />
+                        <ImageButton
+                            android:id="@+id/explain3"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/help_button" />
+                        <ImageButton
+                            android:id="@+id/explain4"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/help_button" />
+
+                    </LinearLayout>
+
                 </LinearLayout>
+
+                <!--question-->
+
+                <LinearLayout
+                    android:id="@+id/question"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#3F51B5"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/questionIcon"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/arrow_right" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:text="Questions"
+                        android:textColor="#FFFFFF"
+                        android:textSize="20dp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/questionExpand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    >
+
+                    <!--hint-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="Please answer the questions regarding the situation in which you were using the app, not writing this review."
+                        android:background="#FFFFFF"
+                        android:textColor="#FF0000"
+                        android:textSize="20dp"
+                        android:textStyle="bold|italic"
+                        android:padding="10dp"
+                        />
+
+
+                    <!--Q1-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:background="#CD5555"
+                        android:orientation="vertical"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="How to describe your sense of the time?"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20dp" />
+                        <RadioGroup
+                            android:id="@+id/Q1Group"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:orientation="vertical">
+
+                            <RadioButton
+                                android:id="@+id/Q1A1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Have enough time to use the app."
+                                android:textColor="#FFFFFF"
+                                android:textSize="15dp" />
+
+                            <RadioButton
+                                android:id="@+id/Q1A2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:gravity="center"
+                                android:text="Not have enough time to use the app"
+                                android:textColor="#FFFFFF"
+                                android:textSize="15dp" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <!--Q2-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:background="#EE7600"
+                        android:orientation="vertical"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text=" How to describe your physical situation?"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20dp" />
+                        <RadioGroup
+                            android:id="@+id/Q2Group"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:orientation="vertical">
+
+                            <RadioButton
+                                android:id="@+id/Q2A1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="In a fixed location, not moving"
+                                android:textColor="#FFFFFF"
+                                android:textSize="15dp" />
+
+                            <RadioButton
+                                android:id="@+id/Q2A2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="In transportation"
+                                android:textColor="#FFFFFF"
+                                android:textSize="15dp" />
+                            <RadioButton
+                                android:id="@+id/Q2A3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Physically moving"
+                                android:textColor="#FFFFFF"
+                                android:textSize="15dp" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <!--Q3-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:background="#CDAD00"
+                        android:orientation="vertical"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="How to describe your social situation?"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20dp" />
+                        <RadioGroup
+                            android:id="@+id/Q3Group"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="left"
+                            android:orientation="vertical">
+
+                            <RadioButton
+                                android:id="@+id/Q3A1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Using mobile device is not appropriate"
+                                android:textColor="#FFFFFF"
+                                android:textSize="15dp" />
+
+                            <RadioButton
+                                android:id="@+id/Q3A2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Feeling free to use mobile device"
+                                android:textColor="#FFFFFF"
+                                android:textSize="15dp" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+
+
+
 
                 <Button
                     android:id="@+id/saveBtn"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/save_button"
                     android:textColor="#FFFFFF"

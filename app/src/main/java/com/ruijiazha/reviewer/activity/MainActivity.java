@@ -2,7 +2,9 @@ package com.ruijiazha.reviewer.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -10,6 +12,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -30,6 +33,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
@@ -62,23 +66,30 @@ public class MainActivity extends Activity {
     private String imgPath;
     private String positions;
     private String reviewType;
-    private String Q1, Q2, Q3, Q4, Q5, Q6, Q7;
+    private String Q1, Q2, Q3;
     private String username;
+    private String screenshotTime = null;
     private int rates = 0;
+    private boolean refresh = false;
 
     File image;
     FileInputStream fis;
     Bundle extras;
 
     Button save,upload;
-    ImageView imageView;
+    ImageView imageView,issueTypeExpandIcon,questionIcon;
     EditText inputReview, inputAppName;
     RatingBar ratingBar;
-    RadioGroup Q1Group, Q2Group, Q3Group, Q4Group, Q5Group, Q6Group, Q7Group;
-    RadioButton Q1ButtonYes, Q1ButtonNo, Q2ButtonYes, Q2ButtonNo, Q3ButtonYes, Q3ButtonNo, Q4ButtonYes, Q4ButtonNo, Q5ButtonYes, Q5ButtonNo, Q6ButtonYes, Q6ButtonNo, Q7Button1, Q7Button2, Q7Button3;
-    ImageButton view, marker;
+    RadioGroup issueTypeGroup;
+    RadioButton issueType1,issueType2,issueType3,issueType4;
+    RadioGroup Q1Group, Q2Group, Q3Group;
+    RadioButton Q1A1,Q1A2;
+    RadioButton Q2A1,Q2A2,Q2A3;
+    RadioButton Q3A1,Q3A2;
+    ImageButton view, marker,explain1,explain2,explain3,explain4;
     RelativeLayout cover;
     RelativeLayout relative;
+    LinearLayout issueTypeChoice,issueTypeExpand,question,questionExpand;
 
 
 
@@ -116,32 +127,107 @@ public class MainActivity extends Activity {
         inputReview = (EditText) findViewById(R.id.inputReview);
         view = (ImageButton) findViewById(R.id.view);
         cover = (RelativeLayout)findViewById(R.id.cover);
+        issueTypeExpand = (LinearLayout) findViewById(R.id.issueTypeExpand);
+        issueTypeChoice = (LinearLayout)findViewById(R.id.issueTypeChoice);
+        issueTypeExpandIcon = (ImageView)findViewById(R.id.issueTypeExpandIcon);
+        explain1 = (ImageButton)findViewById(R.id.explain1);
+        explain2 = (ImageButton)findViewById(R.id.explain2);
+        explain3 = (ImageButton)findViewById(R.id.explain3);
+        explain4 = (ImageButton)findViewById(R.id.explain4);
+        question = (LinearLayout)findViewById(R.id.question);
+        questionExpand = (LinearLayout)findViewById(R.id.questionExpand);
+        questionIcon = (ImageView)findViewById(R.id.questionIcon);
         relative = new RelativeLayout(MainActivity.this);//this layout is used to draw markers
+
+        issueTypeGroup = (RadioGroup) findViewById(R.id.issueTypeGroup);
+        issueType1 = (RadioButton) findViewById(R.id.issueType1);
+        issueType2 = (RadioButton) findViewById(R.id.issueType2);
+        issueType3 = (RadioButton) findViewById(R.id.issueType3);
+        issueType4 = (RadioButton) findViewById(R.id.issueType4);
+
+        issueTypeExpand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(issueTypeChoice.getVisibility()==View.GONE) {
+                    issueTypeChoice.setVisibility(View.VISIBLE);
+                    issueTypeExpandIcon.setImageDrawable(getResources().getDrawable(R.drawable.arrow_down));
+                }else{
+                    issueTypeChoice.setVisibility(View.GONE);
+                    issueTypeExpandIcon.setImageDrawable(getResources().getDrawable(R.drawable.arrow_right));
+                }
+            }
+        });
+
+        question.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(questionExpand.getVisibility()==View.GONE) {
+                    questionExpand.setVisibility(View.VISIBLE);
+                    questionIcon.setImageDrawable(getResources().getDrawable(R.drawable.arrow_down));
+                }else{
+                    questionExpand.setVisibility(View.GONE);
+                    questionIcon.setImageDrawable(getResources().getDrawable(R.drawable.arrow_right));
+                }
+            }
+        });
+
+        explain1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Bugs: functional mistakes", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        explain2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Performance: functional but not good enough", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        explain3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "UI/User Experience: unpleasant design", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        explain4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Service Request/Improvement: need to add more service or improve", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        issueTypeGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == issueType1.getId()) {
+                    reviewType = "Bugs";
+                } else if (checkedId == issueType2.getId()) {
+                    reviewType = "Performance";
+                } else if (checkedId == issueType3.getId()) {
+                    reviewType = "UI/User Experience";
+                } else if (checkedId == issueType4.getId()) {
+                    reviewType = "Service Request/Improvement";
+                } else {
+                    reviewType = "Others";
+                }
+            }
+        });
 
 
         Q1Group = (RadioGroup) findViewById(R.id.Q1Group);
         Q2Group = (RadioGroup) findViewById(R.id.Q2Group);
         Q3Group = (RadioGroup) findViewById(R.id.Q3Group);
-        Q4Group = (RadioGroup) findViewById(R.id.Q4Group);
-        Q5Group = (RadioGroup) findViewById(R.id.Q5Group);
-        Q6Group = (RadioGroup) findViewById(R.id.Q6Group);
-        Q7Group = (RadioGroup) findViewById(R.id.Q7Group);
 
-        Q1ButtonYes = (RadioButton) findViewById(R.id.Q1ButtonYes);
-        Q1ButtonNo = (RadioButton) findViewById(R.id.Q1ButtonNo);
-        Q2ButtonYes = (RadioButton) findViewById(R.id.Q2ButtonYes);
-        Q2ButtonNo = (RadioButton) findViewById(R.id.Q2ButtonNo);
-        Q3ButtonYes = (RadioButton) findViewById(R.id.Q3ButtonYes);
-        Q3ButtonNo = (RadioButton) findViewById(R.id.Q3ButtonNo);
-        Q4ButtonYes = (RadioButton) findViewById(R.id.Q4ButtonYes);
-        Q4ButtonNo = (RadioButton) findViewById(R.id.Q4ButtonNo);
-        Q5ButtonYes = (RadioButton) findViewById(R.id.Q5ButtonYes);
-        Q5ButtonNo = (RadioButton) findViewById(R.id.Q5ButtonNo);
-        Q6ButtonYes = (RadioButton) findViewById(R.id.Q6ButtonYes);
-        Q6ButtonNo = (RadioButton) findViewById(R.id.Q6ButtonNo);
-        Q7Button1 = (RadioButton) findViewById(R.id.Q7Button1);
-        Q7Button2 = (RadioButton) findViewById(R.id.Q7Button2);
-        Q7Button3 = (RadioButton) findViewById(R.id.Q7Button3);
+        Q1A1 = (RadioButton)findViewById(R.id.Q1A1);
+        Q1A2 = (RadioButton)findViewById(R.id.Q1A2);
+        Q2A1 = (RadioButton)findViewById(R.id.Q2A1);
+        Q2A2 = (RadioButton)findViewById(R.id.Q2A2);
+        Q2A3 = (RadioButton)findViewById(R.id.Q2A3);
+        Q3A1 = (RadioButton)findViewById(R.id.Q3A1);
+        Q3A2 = (RadioButton)findViewById(R.id.Q3A2);
 
 
         upload.setOnClickListener(new View.OnClickListener() {
@@ -163,16 +249,14 @@ public class MainActivity extends Activity {
         });
 
 
-        final Spinner spinner = (Spinner) findViewById(R.id.typeSpinner);
-        spinner.setGravity(Gravity.CENTER);
 
         Q1Group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == Q1ButtonYes.getId()) {
-                    Q1 = "yes";
-                } else if (checkedId == Q1ButtonNo.getId()) {
-                    Q1 = "no";
+                if (checkedId == Q1A1.getId()) {
+                    Q1 = "1";
+                } else if (checkedId == Q1A2.getId()) {
+                    Q1 = "2";
                 } else {
                     Q1 = null;
                 }
@@ -182,10 +266,12 @@ public class MainActivity extends Activity {
         Q2Group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == Q2ButtonYes.getId()) {
-                    Q2 = "yes";
-                } else if (checkedId == Q2ButtonNo.getId()) {
-                    Q2 = "no";
+                if (checkedId == Q2A1.getId()) {
+                    Q2 = "1";
+                } else if (checkedId == Q2A2.getId()) {
+                    Q2 = "2";
+                } else if (checkedId == Q2A3.getId()) {
+                    Q2 = "3";
                 } else {
                     Q2 = null;
                 }
@@ -195,133 +281,16 @@ public class MainActivity extends Activity {
         Q3Group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == Q3ButtonYes.getId()) {
-                    Q3 = "yes";
-                } else if (checkedId == Q3ButtonNo.getId()) {
-                    Q3 = "no";
+                if (checkedId == Q3A1.getId()) {
+                    Q3 = "1";
+                } else if (checkedId == Q3A2.getId()) {
+                    Q3 = "2";
                 } else {
                     Q3 = null;
                 }
             }
         });
 
-        Q4Group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == Q4ButtonYes.getId()) {
-                    Q4 = "yes";
-                } else if (checkedId == Q4ButtonNo.getId()) {
-                    Q4 = "no";
-                } else {
-                    Q4 = null;
-                }
-            }
-        });
-
-        Q5Group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == Q5ButtonYes.getId()) {
-                    Q5 = "yes";
-                } else if (checkedId == Q5ButtonNo.getId()) {
-                    Q5 = "no";
-                } else {
-                    Q5 = null;
-                }
-            }
-        });
-
-        Q6Group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == Q6ButtonYes.getId()) {
-                    Q6 = "yes";
-                } else if (checkedId == Q6ButtonNo.getId()) {
-                    Q6 = "no";
-                } else {
-                    Q6 = null;
-                }
-            }
-        });
-
-        Q7Group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == Q7Button1.getId()) {
-                    Q7 = "Visiting";
-                } else if (checkedId == Q7Button2.getId()) {
-                    Q7 = "Wandering";
-                } else if (checkedId == Q7Button3.getId()) {
-                    Q7 = "Traveling";
-                } else {
-                    Q7 = null;
-                }
-            }
-        });
-
-
-        String[] plants = new String[]{
-                "Select a Review Type",
-                "Functional Error",
-                "Lagging",
-                "Unattractive Interface Design",
-                "Uninteresting Content",
-                "App Quits Unexpectedly",
-                "App Freeze",
-                "Lose Data",
-                "Feature missing",
-                "Feature should be removed",
-                "Feature not working as expected",
-                "Difficult to use",
-                "Not working on particular system version",
-                "Not working on particular device",
-                "Poor Connection with Wifi",
-                "Poor Connection with Mobile Network",
-                "Hidden Cost",
-                "Too Expensive",
-                "Privacy and ethics issues",
-                "Cost too much energy or memory",
-                "Not Specific"
-        };
-
-        final List<String> plantsList = new ArrayList<>(Arrays.asList(plants));
-
-        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this, R.layout.spinner_show_item, plantsList) {
-            @Override
-            public boolean isEnabled(int position) {
-                return position != 0;
-            }
-
-            @Override
-            public View getDropDownView(int position, View convertView,
-                                        ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView tv = (TextView) view;
-                if (position == 0) {
-                    tv.setTextColor(Color.GRAY);
-                } else {
-                    tv.setTextColor(Color.BLACK);
-                }
-                return view;
-            }
-        };
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_item);
-        spinner.setAdapter(spinnerArrayAdapter);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position > 0) {
-                    reviewType = (String) parent.getItemAtPosition(position);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         //if no token, need to open loginactivity
         //write username as token
@@ -386,15 +355,12 @@ public class MainActivity extends Activity {
                 review.setQ1(Q1);
                 review.setQ2(Q2);
                 review.setQ3(Q3);
-                review.setQ4(Q4);
-                review.setQ5(Q5);
-                review.setQ6(Q6);
-                review.setQ7(Q7);
+                review.setScreenshotTime(screenshotTime);
                 review.setUsername(username);
 
                 if (appName.equals("")) {
                     Toast.makeText(MainActivity.this, "Please input application name!", Toast.LENGTH_LONG).show();
-                } else if (reviewType == null || Q1 == null || Q2 == null || Q3 == null || Q4 == null || Q5 == null || Q6 == null || Q7 == null) {
+                } else if (reviewType == null || Q1 == null || Q2 == null || Q3 == null ) {
                     Toast.makeText(MainActivity.this, "Please complete the questions!", Toast.LENGTH_LONG).show();
                 } else {
                     new Thread() {
@@ -437,6 +403,7 @@ public class MainActivity extends Activity {
                     ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, SCREENSHOT);
                 } else {
                     try {
+                        screenshotTime = DBHelper.getCurrentTime();
                         Uri uri2 = (Uri) extras.getParcelable(Intent.EXTRA_STREAM);
                         String path = getRealPathFromURI(MainActivity.this, uri2);
                         imgPath = path;
@@ -460,8 +427,12 @@ public class MainActivity extends Activity {
 
         //draw the markers on pic
 
-        positions = getIntent().getStringExtra("positions");
-
+        if(!refresh) {
+            positions = getIntent().getStringExtra("positions");
+        }else{
+            positions = null;
+            refresh = false;
+        }
         Bitmap screenshot = null;
         float zoom = 0f;
         if(img != null) {
@@ -580,6 +551,11 @@ public class MainActivity extends Activity {
             case IMAGE: //result of choosing a photo from gallery
                 if (resultCode == RESULT_OK) {
                     try {
+                        relative.removeAllViews();
+                        refresh = true;
+                        if(MarkerActivity.instance != null){
+                            MarkerActivity.instance.finish();
+                        }
                         Uri selectedImage = data.getData();
                         String[] filePathColumn = {MediaStore.Images.Media.DATA};
                         Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
@@ -612,6 +588,20 @@ public class MainActivity extends Activity {
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle("Do you want to give up the review?")
+                .setPositiveButton("Give up",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        }).setNegativeButton("Cancel", null).create().show();
     }
 
     public String getRealPathFromURI(Activity act, Uri contentUri) {

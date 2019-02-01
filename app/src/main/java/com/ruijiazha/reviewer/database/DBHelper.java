@@ -74,7 +74,7 @@ public class DBHelper {
         int res = -1;
         PreparedStatement ps = null;
         try {
-            String sql = "INSERT INTO collected_review(appname,reviewer,rating,screenshot,marker,overall,type,Q1,Q2,Q3,Q4,Q5,Q6,Q7,time) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO collected_review(appname,reviewer,rating,screenshot,marker,overall,type,Q1,Q2,Q3,screenshotTime,saveTime) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
             //String sql = "INSERT INTO test(col) VALUES ('asd')";
             ps = con.prepareStatement(sql);
             ps.setString(1, r.getAppName());
@@ -92,11 +92,8 @@ public class DBHelper {
             ps.setString(8, r.getQ1());
             ps.setString(9, r.getQ2());
             ps.setString(10, r.getQ3());
-            ps.setString(11, r.getQ4());
-            ps.setString(12, r.getQ5());
-            ps.setString(13, r.getQ6());
-            ps.setString(14, r.getQ7());
-            ps.setString(15, getCurrentTime());
+            ps.setString(11, r.getScreenshotTime());
+            ps.setString(12, getCurrentTime());
             res = ps.executeUpdate();
             ps.close();
         } catch (SQLException e) {
@@ -117,7 +114,7 @@ public class DBHelper {
         List<ReviewShow> list = new ArrayList<>();
         ResultSet rs = null;
         PreparedStatement ps = null;
-        String sql = "SELECT * FROM collected_review WHERE reviewer = ? ORDER BY time DESC";
+        String sql = "SELECT * FROM collected_review WHERE reviewer = ? ORDER BY saveTime DESC";
         try {
             if (con != null && (!con.isClosed())) {
                 ps = con.prepareStatement(sql);
@@ -128,7 +125,7 @@ public class DBHelper {
                         ReviewShow reviewShow = new ReviewShow();
                         reviewShow.setAppName(rs.getString("appname"));
                         reviewShow.setRates(rs.getInt("rating"));
-                        reviewShow.setTime(rs.getString("time"));
+                        reviewShow.setTime(rs.getString("saveTime"));
                         reviewShow.setReviewid(rs.getInt("reviewid"));
                         list.add(reviewShow);
                     }
@@ -164,7 +161,7 @@ public class DBHelper {
                     while (rs.next()) {
                         review.setAppName(rs.getString("appname"));
                         review.setRating(rs.getInt("rating"));
-                        review.setTime(rs.getString("time"));
+                        review.setTime(rs.getString("saveTime"));
                         review.setOverall(rs.getString("overall"));
                         review.setScreenshot(rs.getBytes("screenshot"));
                         review.setMarker(rs.getString("marker"));

@@ -13,11 +13,17 @@ public class Review {
     private String Q1;
     private String Q2;
     private String Q3;
-    private String Q4;
-    private String Q5;
-    private String Q6;
-    private String Q7;
     private String username;
+    private String screenshotTime;
+
+    public String getScreenshotTime() {
+        return screenshotTime;
+    }
+
+    public void setScreenshotTime(String screenshotTime) {
+        this.screenshotTime = screenshotTime;
+    }
+
     private String time;
 
     public String getTime() {
@@ -108,36 +114,6 @@ public class Review {
         Q3 = q3;
     }
 
-    public String getQ4() {
-        return Q4;
-    }
 
-    public void setQ4(String q4) {
-        Q4 = q4;
-    }
-
-    public String getQ5() {
-        return Q5;
-    }
-
-    public void setQ5(String q5) {
-        Q5 = q5;
-    }
-
-    public String getQ6() {
-        return Q6;
-    }
-
-    public void setQ6(String q6) {
-        Q6 = q6;
-    }
-
-    public String getQ7() {
-        return Q7;
-    }
-
-    public void setQ7(String q7) {
-        Q7 = q7;
-    }
 
 }
